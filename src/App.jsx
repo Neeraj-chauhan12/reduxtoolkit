@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increment, reset } from './features/counterslice'
+import { decrement, increment, incrementByAmount, reset } from './features/counterslice'
 
 const App = () => {
+
+  const [amount, setamount]=useState(0);
 
    const count = useSelector((state) => state.counter.value)
   const dispatch = useDispatch()
@@ -22,6 +24,10 @@ const App = () => {
 
   }
 
+  function handlepayload(){
+    dispatch(incrementByAmount(amount))
+  }
+
   return (
     <div className='bg-gray-700 flex justify-center items-center h-screen flex-col gap-5'>
       <button className='bg-black text-white text-2xl px-3 py-5  rounded-2xl border-2 border-gray-500' onClick={handleaddition}>+</button>
@@ -32,6 +38,9 @@ const App = () => {
       
       
       <button className='bg-black text-white text-2xl  px-3 py-5 rounded-2xl border-2 border-gray-500'  onClick={handlereset}>reset</button>
+      
+      <input value={amount} onChange={(e)=>setamount(e.target.value)} className='text-2xl px-2 py-2 border-2 border-gray-200 ' type='number' />
+      <button className='bg-black text-white text-2xl  px-3 py-5 rounded-2xl border-2 border-gray-500'  onClick={handlepayload}>add with amout</button>
     </div>
   )
 }
